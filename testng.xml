@@ -9,8 +9,8 @@
 
     <test name="Test PIM and Login">
         <classes>
-            <class name="LoginPageTest"/>
-
+<!--            <class name="LoginPageTest"/>-->
+            <class name="ProductPageTest"/>
         </classes>
     </test>
 
