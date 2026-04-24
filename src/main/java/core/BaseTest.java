@@ -2,6 +2,7 @@ package core;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.epam.healenium.SelfHealingDriver;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +17,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import utils.ConfigReader;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,59 +44,70 @@ public abstract class BaseTest {
         WebDriver driver = createDriver();
         DriverManager.setDriverThreadLocal(driver);
         driver.get(Constants.URL);
+
     }
     private WebDriver createDriver() {
-        // 1. Lấy tên trình duyệt từ file config (mặc định là chrome nếu file trống)
         String browserName = ConfigReader.getProperty("browser");
         if (browserName == null || browserName.isEmpty()) {
             browserName = "chrome";
         }
 
-        // 2. Switch-case để chọn Browser
+        WebDriver driver;  // ✅ khai báo driver trước
+
         switch (browserName.toLowerCase().trim()) {
             case "chrome":
                 System.setProperty("webdriver.chrome.silentOutput", "true");
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless=new"); // Dùng mode headless mới nhất
-                chromeOptions.addArguments("--window-size=1920,1080"); // Ép màn hình Full HD
-                chromeOptions.addArguments("--no-sandbox"); // Cần thiết cho Linux/Docker
-                chromeOptions.addArguments("--disable-dev-shm-usage"); // Tránh crash trên máy ảo
-                return new ChromeDriver(chromeOptions);
 
+                // ✅ Disable password manager popup
+                chromeOptions.addArguments("--incognito");
+                String headless = ConfigReader.getProperty("headless");
+                if ("true".equals(headless)) {
+                    chromeOptions.addArguments("--headless=new");
+                    chromeOptions.addArguments("--window-size=1920,1080");
+                }
+                chromeOptions.addArguments("--no-sandbox");
+                chromeOptions.addArguments("--disable-dev-shm-usage");
+                driver = new ChromeDriver(chromeOptions);  // ✅ assign thay vì return
+                if (!"true".equals(headless)) {
+                    driver.manage().window().maximize();  // ✅ maximize khi không headless
+                }
+                break;
 
             case "firefox":
-                // Firefox không dùng ChromeOptions mà dùng FirefoxOptions
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.addArguments("-headless");
-                firefoxOptions.addArguments("--no-sandbox"); // Vượt qua rào cản bảo mật của OS
-                firefoxOptions.addArguments("--disable-dev-shm-usage"); // Tránh lỗi thiếu bộ nhớ đệm (/dev/shm)
+                firefoxOptions.addArguments("--no-sandbox");
+                firefoxOptions.addArguments("--disable-dev-shm-usage");
                 firefoxOptions.addArguments("--window-size=1920,1080");
-                return new FirefoxDriver(firefoxOptions);
+                driver = new FirefoxDriver(firefoxOptions);  // ✅ assign thay vì return
+                break;
 
             case "edge":
                 EdgeOptions edgeOptions = new EdgeOptions();
                 edgeOptions.addArguments("--disable-gpu");
                 edgeOptions.addArguments("-headless");
-                edgeOptions.addArguments("--no-sandbox"); // Vượt qua rào cản bảo mật của OS
-                edgeOptions.addArguments("--disable-dev-shm-usage"); // Tránh lỗi thiếu bộ nhớ đệm (/dev/shm)
+                edgeOptions.addArguments("--no-sandbox");
+                edgeOptions.addArguments("--disable-dev-shm-usage");
                 edgeOptions.addArguments("--window-size=1920,1080");
-                return new EdgeDriver(edgeOptions);
+                driver = new EdgeDriver(edgeOptions);  // ✅ assign thay vì return
+                break;
 
             default:
                 System.out.println("Browser: " + browserName + " không hợp lệ. Đang khởi tạo Chrome mặc định...");
-                return new ChromeDriver();
+                driver = new ChromeDriver();
+                break;
         }
-//        driver.manage().window().maximize();
 
-        // 2. Đẩy vào ThreadLocal ngay lập tức
-
+        // ✅ Wrap bằng SelfHealingDriver rồi mới return
+        return SelfHealingDriver.create(driver);
     }
     // 3. Luôn lấy driver từ ThreadLocal thông qua hàm này
     public WebDriver getDriver() {
         return DriverManager.getDriver();
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void closeDriver() {
         // 4. Giải phóng driver và xóa ThreadLocal cho sạch ngăn kéo
         DriverManager.quitDriver();

@@ -28,7 +28,14 @@ public class CaptureHelpers {
             }
 
             // 3. Chụp ảnh
-            File source = ((TakesScreenshot) DriverManager.getDriver()).getScreenshotAs(OutputType.FILE);
+            WebDriver driver = DriverManager.getDriver();
+
+            // ✅ Unwrap SelfHealingDriver để lấy driver thật
+            if (driver instanceof com.epam.healenium.SelfHealingDriver) {
+                driver = ((com.epam.healenium.SelfHealingDriver) driver).getDelegate();
+            }
+
+            File source = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             String targetPath = directory + fileName;
             File destination = new File(targetPath);
 

@@ -41,7 +41,7 @@ public class BasePage {
     public boolean isDisplayed(WebElement element) {
         try {
             return element.isDisplayed();
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | StaleElementReferenceException e) {
             return false;
         }
     }
@@ -52,8 +52,15 @@ public class BasePage {
     }
 
     public void scrollToElement(WebElement element) {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        WebDriver originalDriver = driver;
+
+        // ✅ Unwrap SelfHealingDriver
+        if (driver instanceof com.epam.healenium.SelfHealingDriver) {
+            originalDriver = ((com.epam.healenium.SelfHealingDriver) driver).getDelegate();
+        }
+
+        JavascriptExecutor js = (JavascriptExecutor) originalDriver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", element);
     }
 
 }

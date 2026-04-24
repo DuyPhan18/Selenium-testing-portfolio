@@ -4,6 +4,7 @@ import core.ExtentManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -30,9 +31,21 @@ public class ProductPageTest extends BaseTest {
         Assert.assertEquals(productPage.isProductListDisplay6Item(), 6,"Match");
         ExtentManager.getTest().info("Have 6 item in inventory page");
 
+        productPage.addToCart(itemIndex);
+        ExtentManager.getTest().info("add item successfully");
+
+        Assert.assertTrue(productPage.checkCartBadge(Integer.parseInt(cartBadge)),
+                "Cart badge should equal " + cartBadge);
+
+    }
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        if (productPage != null) {
+            productPage.clearCart();// ✅ clear cart trước khi closeDriver chạy
+        }
     }
 
-    @DataProvider(name = "productPageTest", parallel = true)
+    @DataProvider(name = "productPageTest", parallel = false)
     public Object[][] getData() {
         String path = "data" + java.io.File.separator + "test-data.xlsx";
         return ExcelUtils.getTableArray(path, "productPageTest", false);
