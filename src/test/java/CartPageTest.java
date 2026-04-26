@@ -1,10 +1,13 @@
 import core.BaseTest;
 import core.Constants;
+import core.ExtentManager;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.LoginPage;
+import pages.ProductPage;
 import utils.ExcelUtils;
 
 public class CartPageTest extends BaseTest {
@@ -17,8 +20,18 @@ public class CartPageTest extends BaseTest {
         CartPage cartPage = new CartPage(getDriver());
     }
 
-    @Test()
-    public void cartPageTest(){
+    @Test(dataProvider = "cartPageTest")
+    public void cartPageTest(String testCaseId, String itemName, String totalItemQuantity){
+        CartPage cartPage = new CartPage(getDriver());
+        cartPage.addToCartByName(itemName);
+        ExtentManager.getTest().info("add item successfully");
+
+        cartPage.goToCart();
+        ExtentManager.getTest().info("go to cart");
+
+        Assert.assertTrue(cartPage.verifyItemInCart(itemName, totalItemQuantity), "Match");
+        ExtentManager.getTest().info("Finish");
+
 
     }
 
