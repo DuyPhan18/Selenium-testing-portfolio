@@ -18,31 +18,59 @@ public class ProductPage extends BasePage {
     private List<WebElement> productCardList;
     @FindBy(how = How.CLASS_NAME, using = "shopping_cart_badge")
     private WebElement shoppingCartBadge;
-
+    @FindBy(how = How.CLASS_NAME, using = "inventory_item_name")
+    private List<WebElement> itemNameList;
 
     public int isProductListDisplay6Item(){
         return productCardList.size();
     }
-    public void addToCart(int itemIndex){
-
-        int index = itemIndex-1;
-        WebElement item = productCardList.get(index);
-        scrollToElement(item);
-        WebElement addToCartBtn = item.findElement(By.xpath(".//button[contains(text(), 'Add to cart')]"));
-        if (isDisplayed(addToCartBtn)){
-            System.out.println("Found item");
+//    public void addToCart(int itemIndex){
+//
+//        int index = itemIndex-1;
+//        WebElement item = productCardList.get(index);
+//        scrollToElement(item);
+//        WebElement addToCartBtn = item.findElement(By.xpath(".//button[contains(text(), 'Add to cart')]"));
+//        if (isDisplayed(addToCartBtn)){
+//            System.out.println("Found item");
+//        }
+//        click(addToCartBtn);
+//        System.out.println("Clicked Add to cart for item: " + itemIndex);
+//        scrollToElement(shoppingCartBadge);
+//
+//    }
+//    public void addToCart(String itemIndexes) {
+//        String[] indexes = itemIndexes.split(",");
+//        System.out.println("Total items to add: " + indexes.length);
+//        for (String index : indexes) {
+//            System.out.println("Adding item index: " + index.trim());
+//            addToCart(Integer.parseInt(index.trim()));
+//        }
+//    }
+public void addToCartByName(String itemName) {
+    for (int i = 0; i < itemNameList.size(); i++) {
+        String itemNameText = itemNameList.get(i).getText();
+        if (itemNameText.equals(itemName)) {
+            WebElement productCard = productCardList.get(i);
+            scrollToElement(productCard);
+            WebElement addToCartBtn = productCard.findElement(
+                    By.xpath(".//button[contains(text(), 'Add to cart')]"));
+            if (isDisplayed(addToCartBtn)) {
+                System.out.println("Found item: " + itemName);
+            }
+            click(addToCartBtn);
+            System.out.println("Clicked Add to cart for item: " + itemName);
+            return;
         }
-        click(addToCartBtn);
-        System.out.println("Clicked Add to cart for item: " + itemIndex);
-        scrollToElement(shoppingCartBadge);
-
     }
-    public void addToCart(String itemIndexes) {
-        String[] indexes = itemIndexes.split(",");
-        System.out.println("Total items to add: " + indexes.length);
-        for (String index : indexes) {
-            System.out.println("Adding item index: " + index.trim());
-            addToCart(Integer.parseInt(index.trim()));
+    System.out.println("Item not found: " + itemName);
+}
+
+    public void addToCartByNames(String itemNames) {
+        String[] names = itemNames.split(",");
+        System.out.println("Total items to add: " + names.length);
+        for (String name : names) {
+            System.out.println("Adding item: " + name.trim());
+            addToCartByName(name.trim());
         }
     }
 

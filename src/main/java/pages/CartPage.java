@@ -22,33 +22,8 @@ public class CartPage extends BasePage {
     private List<WebElement> productCardList;
     @FindBy(how = How.CLASS_NAME, using = "cart_item")
     private List<WebElement> cartItemList;
-
-    public void addToCart(String itemName) {
-        for (int i = 0; i < itemNameList.size(); i++) {
-            String itemNameText = itemNameList.get(i).getText();
-            if (itemNameText.equals(itemName)) {
-                WebElement productCard = productCardList.get(i);  // ✅ lấy card tương ứng
-                scrollToElement(productCard);
-                WebElement addToCartBtn = productCard.findElement(
-                        By.xpath(".//button[contains(text(), 'Add to cart')]"));
-                if (isDisplayed(addToCartBtn)) {
-                    System.out.println("Found item: " + itemName);
-                }
-                click(addToCartBtn);
-                System.out.println("Clicked Add to cart for item: " + itemName);
-                return;  // ✅ thêm return sau khi add xong
-            }
-        }
-        System.out.println("Item not found: " + itemName);
-    }
-    public void addToCartByName(String itemNames) {
-        String[] indexes = itemNames.split(",");
-        System.out.println("Total items to add: " + indexes.length);
-        for (String index : indexes) {
-            System.out.println("Adding item index: " + index.trim());
-            addToCart(index.trim());
-        }
-    }
+    @FindBy(how = How.CLASS_NAME, using = "inventory_item_name")
+    private List<WebElement> cartItemNameList;
 
     public void goToCart(){
         click(cartBtn);
@@ -56,15 +31,15 @@ public class CartPage extends BasePage {
 
     public boolean verifyItemInCart(String itemNames, String amount){
         int totalAmountInCart = cartItemList.size();
-        if (totalAmountInCart == Integer.parseInt(amount)) {
+        if (totalAmountInCart != Integer.parseInt(amount)) {
             System.out.println("Cart amount mismatch! Expected: "
                     + amount + ", Actual: " + totalAmountInCart);
-            return true;
+            return false;
         }
         String[] names = itemNames.split(",");
         for (String name : names) {
             boolean found = false;
-            for (WebElement cartItem : cartItemList) {
+            for (WebElement cartItem : cartItemNameList) {
                 if (cartItem.getText().equals(name.trim())) {
                     found = true;
                     break;
@@ -77,4 +52,29 @@ public class CartPage extends BasePage {
         }
         return true;
     }
+    public void removeFromCart(String itemName) {
+        for (int i = 0; i < cartItemList.size(); i++) {
+            String itemNameText = cartItemList.get(i).getText();
+            if (itemNameText.equals(itemName)) {
+                WebElement productCard = productCardList.get(i);  // ✅ lấy card tương ứng
+                scrollToElement(productCard);
+                WebElement addToCartBtn = productCard.findElement(
+                        By.xpath(".//button[contains(text(), 'Remove')]"));
+                if (isDisplayed(addToCartBtn)) {
+                    System.out.println("Found item: " + itemName);
+                }
+                click(addToCartBtn);
+                System.out.println("Clicked Add to cart for item: " + itemName);
+                return;  // ✅ thêm return sau khi add xong
+            }
+        }
+        System.out.println("Item not found: " + itemName);
+    }
+    public void removeFromCart(int itemIndex){
+        int index = itemIndex -1;
+        WebElement item = cartItemList.get(index);
+        WebElement removeFromCartBtn = item.findElement(By.xpath(".//button[contains(text(), 'Remove')]"));
+        click(removeFromCartBtn);
+    }
+
 }

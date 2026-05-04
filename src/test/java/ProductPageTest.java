@@ -25,13 +25,13 @@ public class ProductPageTest extends BaseTest {
         productPage = new ProductPage(getDriver());
     }
     @Test(dataProvider = "productPageTest")
-    public void productPageTest(String testCaseId, String itemIndex, String cartBadge){
+    public void productPageTest(String testCaseId, String itemName, String cartBadge){
         ExtentManager.getTest().info("Go to inventory page");
 
         Assert.assertEquals(productPage.isProductListDisplay6Item(), 6,"Match");
         ExtentManager.getTest().info("Have 6 item in inventory page");
 
-        productPage.addToCart(itemIndex);
+        productPage.addToCartByNames(itemName);
         ExtentManager.getTest().info("add item successfully");
 
         Assert.assertTrue(productPage.checkCartBadge(Integer.parseInt(cartBadge)),

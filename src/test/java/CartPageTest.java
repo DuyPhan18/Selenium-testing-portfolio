@@ -11,26 +11,29 @@ import pages.ProductPage;
 import utils.ExcelUtils;
 
 public class CartPageTest extends BaseTest {
+    private CartPage cartPage;
+    private ProductPage productPage;
+
     @BeforeMethod
     public void setUp() {
         // BaseTest @BeforeMethod chạy trước (init driver + navigate)
         // setUp này chạy sau, login luôn
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.login(Constants.STANDARD_USER, Constants.PASSWORD);
-        CartPage cartPage = new CartPage(getDriver());
+        this.cartPage = new CartPage(getDriver());
+        this.productPage = new ProductPage(getDriver());
     }
 
     @Test(dataProvider = "cartPageTest")
     public void cartPageTest(String testCaseId, String itemName, String totalItemQuantity){
-        CartPage cartPage = new CartPage(getDriver());
-        cartPage.addToCartByName(itemName);
+        productPage.addToCartByNames(itemName);
         ExtentManager.getTest().info("add item successfully");
 
         cartPage.goToCart();
         ExtentManager.getTest().info("go to cart");
 
         Assert.assertTrue(cartPage.verifyItemInCart(itemName, totalItemQuantity), "Match");
-        ExtentManager.getTest().info("Finish");
+        ExtentManager.getTest().info("Add item to cart successfully");
 
 
     }

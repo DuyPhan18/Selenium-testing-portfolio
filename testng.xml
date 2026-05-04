@@ -11,7 +11,8 @@
         <classes>
 <!--            <class name="LoginPageTest"/>-->
 <!--            <class name="ProductPageTest"/>-->
-            <class name="CartPageTest"/>
+<!--            <class name="CartPageTest"/>-->
+            <class name="CheckOutPageTest"/>
         </classes>
     </test>
 

@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Duy - Regression Test Results</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">Apr 26, 2026 11:21:09 PM</span></a>
+<a href="#"><span class="badge badge-primary">May 4, 2026 04:08:47 PM</span></a>
 </li>
 </ul>
 </div>
@@ -79,9 +79,9 @@
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">cartPageTest</p>
+            <p class="name">checkOutPageTest</p>
             <p class="text-sm">
-              <span>11:21:15 PM</span> / <span>00:00:03:280</span>
+              <span>4:08:55 PM</span> / <span>00:00:04:759</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -89,10 +89,10 @@
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">cartPageTest</h5>
-<span class='badge badge-success'>04.26.2026 11:21:15 PM</span>
-<span class='badge badge-danger'>04.26.2026 11:21:18 PM</span>
-<span class='badge badge-default'>00:00:03:280</span>
+<h5 class="test-status text-pass">checkOutPageTest</h5>
+<span class='badge badge-success'>05.04.2026 4:08:55 PM</span>
+<span class='badge badge-danger'>05.04.2026 4:08:59 PM</span>
+<span class='badge badge-default'>00:00:04:759</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -105,23 +105,37 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>11:21:18 PM</td>
+        <td>4:08:58 PM</td>
         <td>
-          add item successfully
+          Add item to cart.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>11:21:18 PM</td>
+        <td>4:08:58 PM</td>
         <td>
-          go to cart
+          Go to cart.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>11:21:18 PM</td>
+        <td>4:08:58 PM</td>
         <td>
-          Finish
+          Go to checkout page
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:08:59 PM</td>
+        <td>
+          Checkout with fname: John, lname: , postal code: 123
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>4:08:59 PM</td>
+        <td>
+          Checkout failed with correct error: Error: Last Name is required
         </td>
       </tr>
   </tbody>
@@ -134,9 +148,9 @@
           tag=""
           device="">
           <div class="test-detail">
-            <p class="name">cartPageTest</p>
+            <p class="name">checkOutPageTest</p>
             <p class="text-sm">
-              <span>11:21:21 PM</span> / <span>00:00:01:828</span>
+              <span>4:09:03 PM</span> / <span>00:00:03:355</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -144,10 +158,10 @@
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-pass">cartPageTest</h5>
-<span class='badge badge-success'>04.26.2026 11:21:21 PM</span>
-<span class='badge badge-danger'>04.26.2026 11:21:23 PM</span>
-<span class='badge badge-default'>00:00:01:828</span>
+<h5 class="test-status text-pass">checkOutPageTest</h5>
+<span class='badge badge-success'>05.04.2026 4:09:03 PM</span>
+<span class='badge badge-danger'>05.04.2026 4:09:06 PM</span>
+<span class='badge badge-default'>00:00:03:355</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
 <span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
 <span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
@@ -160,23 +174,175 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>11:21:23 PM</td>
+        <td>4:09:05 PM</td>
         <td>
-          add item successfully
+          Add item to cart.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>11:21:23 PM</td>
+        <td>4:09:05 PM</td>
         <td>
-          go to cart
+          Go to cart.
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>11:21:23 PM</td>
+        <td>4:09:05 PM</td>
         <td>
-          Finish
+          Go to checkout page
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:06 PM</td>
+        <td>
+          Checkout with fname: , lname: hamburger, postal code: 123
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>4:09:06 PM</td>
+        <td>
+          Checkout failed with correct error: Error: First Name is required
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="3"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">checkOutPageTest</p>
+            <p class="text-sm">
+              <span>4:09:10 PM</span> / <span>00:00:03:327</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">checkOutPageTest</h5>
+<span class='badge badge-success'>05.04.2026 4:09:10 PM</span>
+<span class='badge badge-danger'>05.04.2026 4:09:13 PM</span>
+<span class='badge badge-default'>00:00:03:327</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=3</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:11 PM</td>
+        <td>
+          Add item to cart.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:12 PM</td>
+        <td>
+          Go to cart.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:12 PM</td>
+        <td>
+          Go to checkout page
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:13 PM</td>
+        <td>
+          Checkout with fname: John, lname: hamburger, postal code: 
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>4:09:13 PM</td>
+        <td>
+          Checkout failed with correct error: Error: Postal Code is required
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="4"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">checkOutPageTest</p>
+            <p class="text-sm">
+              <span>4:09:16 PM</span> / <span>00:00:03:697</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">checkOutPageTest</h5>
+<span class='badge badge-success'>05.04.2026 4:09:16 PM</span>
+<span class='badge badge-danger'>05.04.2026 4:09:20 PM</span>
+<span class='badge badge-default'>00:00:03:697</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=4</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:18 PM</td>
+        <td>
+          Add item to cart.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:18 PM</td>
+        <td>
+          Go to cart.
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:19 PM</td>
+        <td>
+          Go to checkout page
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>4:09:20 PM</td>
+        <td>
+          Checkout with fname: John, lname: hamburger, postal code: 123
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>4:09:20 PM</td>
+        <td>
+          Checkout success - directed to overview page
         </td>
       </tr>
   </tbody>
@@ -198,19 +364,19 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>Apr 26, 2026 11:21:09 PM</h3>
+<h3>May 4, 2026 04:08:47 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>Apr 26, 2026 11:21:24 PM</h3>
+<h3>May 4, 2026 04:09:21 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0 text-pass">Tests Passed</p>
-<h3>2</h3>
+<h3>4</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -233,7 +399,7 @@
 </div>
 <div class="card-footer">
 <div><small data-tooltip='100%'>
-<b>2</b> tests passed
+<b>4</b> tests passed
 </small>
 </div>
 <div>
@@ -255,10 +421,10 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='0%'><b>0</b> events passed</small></div>
+<div><small data-tooltip='20%'><b>4</b> events passed</small></div>
 <div>
 <small data-tooltip='0%'><b>0</b> events failed,
-<b data-tooltip='%'>6</b> others
+<b data-tooltip='%'>16</b> others
 </small>
 </div>
 </div>
@@ -274,7 +440,7 @@
 </div></div>
 <script>
 var timeline = {
-"cartPageTest":3.28,"cartPageTest":1.828
+"checkOutPageTest":4.759,"checkOutPageTest":3.355,"checkOutPageTest":3.327,"checkOutPageTest":3.697
 };
 </script>
 <div class="row">
@@ -305,7 +471,7 @@ var timeline = {
 <script>
 var statusGroup = {
 parentCount: 5,
-passParent: 2,
+passParent: 4,
 failParent: 0,
 warningParent: 0,
 skipParent: 0,
@@ -322,11 +488,11 @@ warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
-passEvents: 0,
+passEvents: 4,
 failEvents: 0,
 warningEvents: 0,
 skipEvents: 0,
-infoEvents: 6
+infoEvents: 16
 };
 </script>        </div>
       </div>

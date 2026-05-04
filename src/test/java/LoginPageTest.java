@@ -23,7 +23,7 @@ public class LoginPageTest extends BaseTest {
         Assert.assertTrue(loginPage.isLoginBoxDisplay());
 
         loginPage.login(username, password);
-        ExtentManager.getTest().info("Login with username: " + username +", password: " + password);
+
         if (expectedResult.equals("Login success")) {
             Assert.assertTrue(getDriver().getCurrentUrl().contains("inventory"),
                     "Expected login success but failed");
