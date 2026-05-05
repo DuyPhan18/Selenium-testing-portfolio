@@ -25,16 +25,26 @@ public class CartPageTest extends BaseTest {
     }
 
     @Test(dataProvider = "cartPageTest")
-    public void cartPageTest(String testCaseId, String itemName, String totalItemQuantity){
-        productPage.addToCartByNames(itemName);
-        ExtentManager.getTest().info("add item successfully");
+    public void cartPageTest(String testCaseId, String itemName, String cartBadge, String action){
 
-        cartPage.goToCart();
-        ExtentManager.getTest().info("go to cart");
+        if (action.equals("add")){
+            productPage.addToCartByNames(itemName);
+            ExtentManager.getTest().info("add item successfully");
 
-        Assert.assertTrue(cartPage.verifyItemInCart(itemName, totalItemQuantity), "Match");
-        ExtentManager.getTest().info("Add item to cart successfully");
+            cartPage.goToCart();
+            ExtentManager.getTest().info("go to cart");
 
+            Assert.assertTrue(cartPage.verifyItemInCart(itemName, cartBadge), "Match");
+            ExtentManager.getTest().info("Add item to cart successfully");
+        }else if (action.equals("remove")){
+            productPage.addToCartByNames(itemName);
+            cartPage.goToCart();
+            cartPage.removeFromCart(itemName);
+
+            int badgeCount = productPage.getCartBadgeCount();
+            Assert.assertEquals(badgeCount, Integer.parseInt(cartBadge),
+                    "Cart badge should be " + cartBadge);
+        }
 
     }
 

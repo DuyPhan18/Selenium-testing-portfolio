@@ -52,29 +52,19 @@ public class CartPage extends BasePage {
         }
         return true;
     }
-    public void removeFromCart(String itemName) {
-        for (int i = 0; i < cartItemList.size(); i++) {
-            String itemNameText = cartItemList.get(i).getText();
-            if (itemNameText.equals(itemName)) {
-                WebElement productCard = productCardList.get(i);  // ✅ lấy card tương ứng
-                scrollToElement(productCard);
-                WebElement addToCartBtn = productCard.findElement(
-                        By.xpath(".//button[contains(text(), 'Remove')]"));
-                if (isDisplayed(addToCartBtn)) {
-                    System.out.println("Found item: " + itemName);
+    public void removeFromCart(String itemNames) {
+        String[] names = itemNames.split(",");
+        for (String name : names) {
+            for (int i = 0; i < cartItemNameList.size(); i++) {
+                if (cartItemNameList.get(i).getText().equals(name.trim())) {
+                    WebElement cartItem = cartItemList.get(i);
+                    WebElement removeBtn = cartItem.findElement(
+                            By.xpath(".//button[contains(text(), 'Remove')]"));
+                    click(removeBtn);
+                    System.out.println("Removed: " + name.trim());
+                    break;
                 }
-                click(addToCartBtn);
-                System.out.println("Clicked Add to cart for item: " + itemName);
-                return;  // ✅ thêm return sau khi add xong
             }
         }
-        System.out.println("Item not found: " + itemName);
     }
-    public void removeFromCart(int itemIndex){
-        int index = itemIndex -1;
-        WebElement item = cartItemList.get(index);
-        WebElement removeFromCartBtn = item.findElement(By.xpath(".//button[contains(text(), 'Remove')]"));
-        click(removeFromCartBtn);
-    }
-
 }

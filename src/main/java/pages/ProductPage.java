@@ -59,6 +59,7 @@ public void addToCartByName(String itemName) {
             }
             click(addToCartBtn);
             System.out.println("Clicked Add to cart for item: " + itemName);
+            scrollToElement(shoppingCartBadge);
             return;
         }
     }
@@ -81,11 +82,16 @@ public void addToCartByName(String itemName) {
         click(removeFromCartBtn);
     }
     public int getCartBadgeCount() {
-        if (!isDisplayed(shoppingCartBadge)) {
+        try {
+            List<WebElement> badges = driver.findElements(
+                    By.className("shopping_cart_badge"));
+            if (badges.isEmpty()) {
+                return 0;  // ✅ không có badge = 0 item
+            }
+            return Integer.parseInt(badges.get(0).getText());
+        } catch (Exception e) {
             return 0;
         }
-        return Integer.parseInt(shoppingCartBadge.getText());
-
     }
     public boolean checkCartBadge(int expectedCount) {
         try {
